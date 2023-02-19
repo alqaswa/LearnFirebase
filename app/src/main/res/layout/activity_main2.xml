@@ -6,15 +6,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity2">
 
     <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/edtText"
+        android:id="@+id/edtTextK"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Enter your data"
         android:textSize="25sp"
         android:textColor="@color/black"
+        android:textColorHint="@color/black"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="32dp"
         android:backgroundTint="@color/black"
@@ -23,7 +24,7 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/txtView"
+        android:id="@+id/txtViewK"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         tools:text="Your output will be shown here"
@@ -34,10 +35,10 @@
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtText"/>
+        app:layout_constraintTop_toBottomOf="@+id/edtTextK"/>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnRun"
+        android:id="@+id/btnRunK"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Run"
@@ -45,11 +46,11 @@
         android:textColor="@color/black"
         android:backgroundTint="@color/teal_200"
         android:layout_marginBottom="32dp"
-        app:layout_constraintStart_toStartOf="@+id/edtText"
+        app:layout_constraintStart_toStartOf="@+id/edtTextK"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnShow"
+        android:id="@+id/btnShowK"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Show"
@@ -58,7 +59,7 @@
         android:backgroundTint="@color/teal_200"
         android:layout_marginBottom="32dp"
         android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="@+id/edtText"
+        app:layout_constraintEnd_toEndOf="@+id/edtTextK"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
