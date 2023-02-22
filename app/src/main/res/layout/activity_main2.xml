@@ -9,10 +9,10 @@
     tools:context=".MainActivity2">
 
     <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/edtTextK"
+        android:id="@+id/edtTextNameK"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Enter your data"
+        android:hint="Enter your name"
         android:textSize="25sp"
         android:textColor="@color/black"
         android:textColorHint="@color/black"
@@ -22,6 +22,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edtTextAgeK"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Enter your age"
+        android:textSize="25sp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:layout_marginHorizontal="16dp"
+        android:backgroundTint="@color/black"
+        android:inputType="number"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edtTextNameK"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/txtViewK"
@@ -35,31 +50,31 @@
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtTextK"/>
+        app:layout_constraintTop_toBottomOf="@+id/edtTextAgeK"/>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnRunK"
+        android:id="@+id/btnSetK"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Run"
+        android:text="Set"
         android:textSize="24sp"
         android:textColor="@color/black"
         android:backgroundTint="@color/teal_200"
         android:layout_marginBottom="32dp"
-        app:layout_constraintStart_toStartOf="@+id/edtTextK"
+        app:layout_constraintStart_toStartOf="@+id/edtTextNameK"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnShowK"
+        android:id="@+id/btnGetK"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Show"
+        android:text="Get"
         android:textSize="24sp"
         android:textColor="@color/black"
         android:backgroundTint="@color/teal_200"
         android:layout_marginBottom="32dp"
         android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="@+id/edtTextK"
+        app:layout_constraintEnd_toEndOf="@+id/edtTextNameK"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
