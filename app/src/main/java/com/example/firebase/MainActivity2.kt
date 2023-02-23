@@ -8,6 +8,9 @@ import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.firebase.adapter.MyAdapter
 import com.example.firebase.model.Person
 import com.google.firebase.database.*
 
@@ -30,7 +33,10 @@ class MainActivity2 : AppCompatActivity()
 
     private lateinit var mChildEventListener:ChildEventListener
 
+    private lateinit var mRecyclerView:RecyclerView
+    private lateinit var myAdapter:MyAdapter
 
+    private lateinit var mPersonList:ArrayList<Person>
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -38,6 +44,11 @@ class MainActivity2 : AppCompatActivity()
         setContentView(R.layout.activity_main2)
 
         viewInitialize()
+
+        mPersonList=ArrayList()
+        mRecyclerView.layoutManager=LinearLayoutManager(this)
+        myAdapter=MyAdapter(mPersonList)
+        mRecyclerView.adapter=myAdapter
 
         mDatabase=FirebaseDatabase.getInstance()        /*get instance or object of whole firebase database which we use*/
         mRefRoot=mDatabase.reference                    /*get reference of root node*/
@@ -49,10 +60,13 @@ class MainActivity2 : AppCompatActivity()
 
 
         mChildEventListener=object:ChildEventListener{
+            @SuppressLint("NotifyDataSetChanged")
             override fun onChildAdded(snapshot:DataSnapshot, previousChildName:String?)
             {
-                val map=snapshot.value as Map<String,Any>
-                txtView.append("${map["name"]} ${map["age"]}\n")
+                val person=snapshot.getValue(Person::class.java)
+                /*txtView.append("${person?.name} ${person?.age}\n")*/
+                mPersonList.add(person!!)
+                myAdapter.notifyDataSetChanged()
             }
 
             override fun onChildChanged(snapshot:DataSnapshot, previousChildName:String?)
@@ -284,9 +298,12 @@ class MainActivity2 : AppCompatActivity()
     {
         edtTxtName=findViewById(R.id.edtTextNameK)
         edtTxtAge=findViewById(R.id.edtTextAgeK)
-        txtView=findViewById(R.id.txtViewK)
+        txtView=findViewById(R.id.txtViewAgeK)
         btnGet=findViewById(R.id.btnGetK)
         btnSet=findViewById(R.id.btnSetK)
 
+        mRecyclerView=findViewById(R.id.recyclerView)
+
     }
 }
+

@@ -1,6 +1,7 @@
 package com.example.firebase;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
@@ -10,8 +11,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.firebase.model.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,6 +38,8 @@ public class MainActivity extends AppCompatActivity
     FirebaseDatabase mDatabase;
     DatabaseReference mReference;
 
+    ChildEventListener eventListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -45,11 +50,59 @@ public class MainActivity extends AppCompatActivity
         mDatabase=FirebaseDatabase.getInstance();
         mReference=mDatabase.getReference();
 
-        btnSet.setOnClickListener(this::setData);
+        btnSet.setOnClickListener(this::setDataProfApproach);
         btnGet.setOnClickListener(this::getData);
+
+        eventListener=new ChildEventListener()
+        {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName)
+            {
+                User user=snapshot.getValue(User.class);
+                txtView.append(user.getName()+"\n"+user.getAge());
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName)
+            {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot)
+            {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName)
+            {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error)
+            {
+
+            }
+        };
+
+        mReference.addChildEventListener(eventListener);
+
+
 
 
     }
+
+
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+
+       mReference.removeEventListener(eventListener);
+    }
+
 
     private void setData(View view)
     {
@@ -83,15 +136,15 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    private void setDataUsingPush(View view)
+    private void setDataProfApproach(View view)
     {
         String name=edtTextName.getText().toString();
         int age=Integer.parseInt(edtTextAge.getText().toString());
 
-        String pushId=mReference.getKey();
+        String pushId=mReference.push().getKey();
 
-        mReference.child(pushId).child("name").setValue(name);
-        mReference.child(pushId).child("age").setValue(age);
+        User user=new User(name,age);
+        mReference.child(pushId).setValue(user);
     }
 
 
@@ -137,30 +190,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-    }
-
-    @Override
-    protected void onDestroy()
-    {
-        super.onDestroy();
-
-        /*This implementation is just for example to show that how we remove callbacks of addValueEventListener */
-        ValueEventListener eventListener=new ValueEventListener()
-        {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot)
-            {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error)
-            {
-
-            }
-        };
-
-        mReference.removeEventListener(eventListener);
     }
 
     private void viewInitialize()
