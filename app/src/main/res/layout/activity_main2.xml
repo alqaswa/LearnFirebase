@@ -74,7 +74,45 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtViewAgeK"
+        app:layout_constraintBottom_toTopOf="@+id/imageView"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:paddingHorizontal="16dp"
+        app:srcCompat="@drawable/ic_launcher_background"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/progressTxt"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/progressTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="progress"
+        android:textSize="24sp"
+        android:textColor="#388E3C"
+        android:textStyle="bold"
+        android:layout_marginVertical="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/progressBar"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:indeterminate="false"
+        android:max="100"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_marginStart="16dp"
+        android:progressBackgroundTint="#C2185B"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/btnSetK"/>
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnSetK"

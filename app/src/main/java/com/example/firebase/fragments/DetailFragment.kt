@@ -26,9 +26,13 @@ class DetailFragment:Fragment()
 
         val txtView:AppCompatTextView=view.findViewById(R.id.fragTxtView)
 
+        /*Getting bundle which is passed from the detail activity*/
         val bundle=arguments
+
+        /*Here ? means that Person can contain null values*/
         val person:Person?
 
+        /*Here we apply this condition to check api level because getParcelable("person") method is deprecated below api 33*/
         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.TIRAMISU)
         {
             person=bundle?.getParcelable("person",Person::class.java)

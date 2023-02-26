@@ -1,23 +1,25 @@
 package com.example.firebase.adapter
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView.OnItemClickListener
+import android.widget.Toast
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.firebase.DetailActivityKt
 import com.example.firebase.R
+import com.example.firebase.methods.DeleteData
 import com.example.firebase.model.Person
 
-class MyAdapter(private val personList:List<Person>):RecyclerView.Adapter<MyAdapter.MyViewHolder>()
+class MyAdapter(private val personList:List<Person>,private val mContext:Context):RecyclerView.Adapter<MyAdapter.MyViewHolder>()
 {
 
     override fun onCreateViewHolder(parent:ViewGroup, viewType:Int):MyViewHolder
     {
-        val view=LayoutInflater.from(parent.context).inflate(R.layout.list_item,parent,false)
+        val view=LayoutInflater.from(mContext).inflate(R.layout.list_item,parent,false)
         return MyViewHolder(view)
     }
 
@@ -32,15 +34,23 @@ class MyAdapter(private val personList:List<Person>):RecyclerView.Adapter<MyAdap
         holder.txtName.text=person.name
         holder.txtAge.text=person.age.toString()
 
-        holder.itemView.setOnClickListener(View.OnClickListener {
-            val intent=Intent(it.context,DetailActivityKt::class.java)
+        holder.itemView.setOnClickListener {
+            val intent=Intent(mContext, DetailActivityKt::class.java)
 
             val bundle=Bundle()
-            bundle.putParcelable("person",person)
+            bundle.putParcelable("person", person)
 
-            intent.putExtra("bundle",bundle)
-            it.context.startActivity(intent)
-        })
+            /*Here on clicking of every item we send person object using bundle through intent*/
+            intent.putExtra("bundle", bundle)
+            mContext.startActivity(intent)
+        }
+
+        val childId=person.childId
+        holder.itemView.setOnLongClickListener {
+            val task=DeleteData.deleteData(childId!!)
+            task.addOnSuccessListener {
+                Toast.makeText(mContext,"Successfully removed ",Toast.LENGTH_SHORT).show()}
+            true}
     }
 
     class MyViewHolder(itemView:View):RecyclerView.ViewHolder(itemView)
